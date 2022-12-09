@@ -1,7 +1,19 @@
+import 'package:more/more.dart';
+
 import '../utils/index.dart';
 
 class Day06 extends GenericDay {
   Day06() : super(6);
+
+  part1(List<String> lines, {keylen = 4}) =>
+      lines.first.indexOf(lines.first
+          .split('')
+          .window(keylen)
+          .firstWhere((e) => e.toSet().length == keylen)
+          .join('')) +
+      keylen;
+
+  part2(lines) => part1(lines, keylen: 14);
 
   @override
   parseInput() {
