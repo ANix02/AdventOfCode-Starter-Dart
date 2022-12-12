@@ -77,7 +77,7 @@ class Day09 extends GenericDay {
 
     // var tail = Pair(head.col, head.row);
     List<Pair> pairList = [];
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 2; i++) {
       pairList.add(Pair(0, 0));
     }
     print(pairList.length);
