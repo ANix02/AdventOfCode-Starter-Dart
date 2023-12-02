@@ -1,39 +1,42 @@
 import '../utils/index.dart';
 
-/// Every day should extend [GenericDay] to have access to the corresponding
-/// input and a common interface.
-///
-/// Naming convention is set to pad any single-digit day with `0` to have proper
-/// ordering of files and correct mapping between input for days and the day
-/// files.
 class Day01 extends GenericDay {
-  // call the superclass with an integer == today´s day
   Day01() : super(1);
-
-  /// The [InputUtil] can be accessed through the superclass variable `input`. \
-  /// There are several methods in that class that parse the input in different
-  /// ways, an example is given below
-  ///
-  /// The return type of this is `dynamic` for [GenericDay], so you can decide
-  /// on a day-to-day basis what this function should return.
+  List<int> result = [];
+  List<String> stringList = [];
   @override
-  List<int> parseInput() {
-    final lines = input.getPerLine();
-    // exemplary usage of ParseUtil class
-    return ParseUtil.stringListToIntList(lines);
+  parseInput() {
+    stringList = input.getPerLine().map((e) => e).toList();
+    for (int i = 0; i < stringList.length; i++) {
+      stringList[i] = ParseUtil.replaceTextNumber(stringList[i]);
+      // print(stringList[i]);
+    }
+    stringList = stringList.map(ParseUtil.intInString).toList();
   }
 
-  /// The `solvePartX` methods always return a int, the puzzle solution. This
-  /// solution will be printed in main.
   @override
   int solvePart1() {
-    // TODO implement
-    return 0;
+    parseInput();
+    final firstNumberList = stringList.map((e) => e.substring(0, 1)).toList();
+    final secondNumberList =
+        stringList.map((e) => e.substring(e.length - 1)).toList();
+    for (int i = 0; i < firstNumberList.length; i++) {
+      result.add(int.parse(firstNumberList[i] + secondNumberList[i]));
+    }
+    return result.fold(0, (previousValue, element) => previousValue + element);
   }
 
   @override
   int solvePart2() {
-    // TODO implement
-    return 0;
+    parseInput();
+    result.clear();
+    final firstNumberList = stringList.map((e) => e.substring(0, 1)).toList();
+    final secondNumberList =
+        stringList.map((e) => e.substring(e.length - 1)).toList();
+    for (int i = 0; i < firstNumberList.length; i++) {
+      result.add(int.parse(firstNumberList[i] + secondNumberList[i]));
+      print(firstNumberList[i] + secondNumberList[i]);
+    }
+    return result.fold(0, (previousValue, element) => previousValue + element);
   }
 }
