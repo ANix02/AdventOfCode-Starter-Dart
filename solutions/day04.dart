@@ -62,6 +62,28 @@ class Day04 extends GenericDay {
 
   @override
   int solvePart2() {
-    return 0;
+    final input = parseInput();
+    return recurseWinningCards(0, input, input.length);
+  }
+
+  int recurseWinningCards(
+      int curIndex, List<List<List<int>>> input, int steps) {
+    var sum = 0;
+    for (var i = 0; i < steps; i++) {
+      final totalAmount =
+          input[curIndex + i][0].length + input[curIndex + i][1].length;
+      final combinedLine = input[curIndex + i][0] + input[curIndex + i][1];
+      final newUniqueNumbers = <int>{}..addAll(combinedLine);
+      final diff = totalAmount - newUniqueNumbers.length;
+      sum += 1;
+      if (diff == 0) {
+      } else {
+        if (curIndex + 1 >= input.length) {
+        } else {
+          sum += recurseWinningCards(curIndex + i + 1, input, diff);
+        }
+      }
+    }
+    return sum;
   }
 }
